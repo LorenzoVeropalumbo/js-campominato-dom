@@ -91,22 +91,18 @@ function gameLoop(){
     }
   }
 
-   // chiude il gioco e da una risposta di vittoria o sconfitta
+  // chiude il gioco e da una risposta di vittoria o sconfitta
   function endGames(points) {
-      
-    let squares = document.querySelectorAll(".square");
-    let i = 1;
-    for (let index = 0; index < squares.length; index++) { 
-      
-      if(bombsLocation.includes(i)){     
-        squares[i - 1].classList.add("bombs");
-      }
-      
-      squares[index].style.pointerEvents = "none";
-      i++;
+    let squares = document.querySelectorAll('.square');
+    for (let index = 0; index < squares.length; index++) {
+        let squareNumber = parseInt(
+            squares[index].querySelector('span').innerHTML
+        );
+        if (bombsLocation.includes(squareNumber)) {
+            squares[index].classList.add('bombs');
+        }
+        squares[index].style.pointerEvents = 'none';
     }
-
-    
   }
 }
 // -----------------------------------
