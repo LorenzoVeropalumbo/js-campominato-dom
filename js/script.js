@@ -56,9 +56,6 @@ function gameLoop(){
       fieldSquare.innerHTML = `<span>${i}</span>`;
       fieldSquare.classList.add("square");
       fieldSquare.classList.add(difficultyClass);
-      if(bombsLocation.includes(i)){
-        fieldSquare.classList.add("bombs");
-      }
       fieldSquare.addEventListener('click', checkClickSquare);
       gameField.append(fieldSquare);
     }
@@ -70,61 +67,40 @@ function gameLoop(){
     const userValue = parseInt(this.querySelector('span').innerHTML);
 
     if(bombsLocation.includes(userValue)){
-  
-      endGames('lost', points)
+      endGames(points);
+
     } else {
       
       // -- 2.2 -- controllo il numero dato non è nell'array dei punti
       if(!points.includes(userValue) && !isNaN(userValue) && userValue < gameMaxRange && userValue > 0){
-            
-        points.push(userValue)
+        
+        points.push(userValue);
+        console.log(points);
       }
       
       // -- 2.3 -- controllo se ha vinto e temino il gioco
       if(points.length === maxPoints){
-            
-        endGames('win', points)
+        endGames(points)
+      }
+    }
+
+  }
+
+  // chiude il gioco e da una risposta di vittoria o sconfitta
+  function endGames(points) {
+    
+    let squares = document.querySelectorAll(".square");
+     
+    for(let i = 0; i < squares.length; i++) {
+      
+      squares[i].removeEventListener('click', checkClickSquare);
+      
+      if(bombsLocation.includes(i)){
+        squares[i-1].classList.add("bombs");
       }
     }
   }
 }
-// // gli scrivo il livello di difficoltà selezionato
-// alert("you have select difficulty " + difficultyLevel);
-
-// const bombsLocation = bombsGeneretor(1, gameMaxRange, numberOfBombs);
-// console.log(bombsLocation);
-
-// // Game variables
-// const points = [];
-// let gameLoops = true;
-// const maxPoints =  gameMaxRange - numberOfBombs;
-
-// // -- 1 -- avvio il ciclo del gioco
-// while(gameLoops){
-
-//   // User interaction
-//   const userValue = parseInt(prompt("Dammi un numero"))
-
-//   // -- 2.1 -- controllo il numero dato dall'utente e se è una bomba temino il gioco
-//   if(bombsLocation.includes(userValue)){
-
-//     gameLoops = endGames('lost', points)
-//   } else {
-
-//     // -- 2.2 -- controllo il numero dato non è nell'array dei punti
-//     if(!points.includes(userValue) && !isNaN(userValue) && userValue < gameMaxRange && userValue > 0){
-      
-//       points.push(userValue)
-//     }
-
-//     // -- 2.3 -- controllo se ha vinto e temino il gioco
-//     if(points.length === maxPoints){
-      
-//       gameLoops = endGames('win', points)
-//     }
-//   }
-// }
-
 // -----------------------------------
 //              FUNCTION 
 // -----------------------------------
@@ -152,18 +128,4 @@ function bombsGeneretor(minRange, maxRange, numberOfBombs) {
 // Genera dei numeri rangom
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
-}
-
-// chiude il gioco e da una risposta di vittoria o sconfitta
-function endGames(value, points) {
-  
-  if(value === "lost"){
-    
-    alert("hai perso")
-    alert("hai totalizzato " + points.length + " punti")
-  } else {
-
-    alert("hai vinto")
-    alert("hai totalizzato " + points.length + " punti")
-  }
 }
