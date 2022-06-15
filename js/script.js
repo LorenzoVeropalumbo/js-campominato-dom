@@ -68,6 +68,8 @@ function gameLoop(){
 
     if(bombsLocation.includes(userValue)){
       endGames(points);
+      let userMessage = document.getElementById("user-message");
+      userMessage.innerHTML = `Peccato, hai perso :-( Hai azzeccato ${points.length} tentavi. Gioca ancora`;
 
     } else {
       
@@ -76,31 +78,36 @@ function gameLoop(){
         
         points.push(userValue);
         console.log(points);
+        this.classList.add("blue");
       }
       
       // -- 2.3 -- controllo se ha vinto e temino il gioco
       if(points.length === maxPoints){
         endGames(points)
+
+        let userMessage = document.getElementById("user-message");
+        userMessage.innerHTML = `Congraturazioni, hai vinto, hai azzeccato ${points.length} tentavi. Gioca ancora!!`;
       }
     }
-
   }
 
    // chiude il gioco e da una risposta di vittoria o sconfitta
   function endGames(points) {
       
     let squares = document.querySelectorAll(".square");
-    
-    for(let i = 1; i <= squares.length; i++) {
+    console.log(squares);
+    let i = 1;
+    for (let index = 0; index < squares.length; index++) { 
       
-      squares[i].style.pointerEvents = "none";
-      
-      if(bombsLocation.includes(i)){
-        console.log(squares[i]);
-        console.log(i);
-        squares[i].classList.add("bombs");
+      if(bombsLocation.includes(i)){     
+        squares[i - 1].classList.add("bombs");
       }
+      
+      squares[index].style.pointerEvents = "none";
+      i++;
     }
+
+    
   }
 }
 // -----------------------------------
