@@ -57,7 +57,7 @@ main {
   align-content: flex-start;
 }
 
-.square {
+.square{
   background-color: #7fffd4;
   border: 1px solid black;
   display: flex;

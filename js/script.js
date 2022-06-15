@@ -86,17 +86,19 @@ function gameLoop(){
 
   }
 
-  // chiude il gioco e da una risposta di vittoria o sconfitta
+   // chiude il gioco e da una risposta di vittoria o sconfitta
   function endGames(points) {
-    
-    let squares = document.querySelectorAll(".square");
-     
-    for(let i = 0; i < squares.length; i++) {
       
-      squares[i].removeEventListener('click', checkClickSquare);
+    let squares = document.querySelectorAll(".square");
+    
+    for(let i = 1; i <= squares.length; i++) {
+      
+      squares[i].style.pointerEvents = "none";
       
       if(bombsLocation.includes(i)){
-        squares[i-1].classList.add("bombs");
+        console.log(squares[i]);
+        console.log(i);
+        squares[i].classList.add("bombs");
       }
     }
   }
