@@ -95,7 +95,6 @@ function gameLoop(){
   function endGames(points) {
       
     let squares = document.querySelectorAll(".square");
-    console.log(squares);
     let i = 1;
     for (let index = 0; index < squares.length; index++) { 
       
